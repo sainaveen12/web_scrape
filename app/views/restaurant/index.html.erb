@@ -1,0 +1,17 @@
+<h1>Articles</h1>
+
+<ul>
+  <% @categories.each do |article| %>
+  <li><%= article.name %></li>
+  <ol>
+    <% Item.where(category_id: article.id).each do |item| %>
+
+    <li><%= item.name %><br>
+      <%= item.price %><br>
+      <%= item.description %></li>
+    <% end %>
+
+    </ol>
+
+    <% end %>
+  </ul>

@@ -1,0 +1,7 @@
+
+production:
+  # <<: *default
+  database: scrape_db
+  username: postgres
+  password: 1217
+  adapter: postgresql
