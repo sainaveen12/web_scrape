@@ -1,3 +1,18 @@
-<%@categories.each do |category|%>
-    <%= category.name%>
-    <%end%>
+<div class="w-25 p-3">
+	<%@categories.each do |category|%>
+	<ul class="list-group">
+		<li class="list-group-item"><%= category.name%></li>
+		<ul class="list-group" >
+			<% category.items.each do |item| %>
+			<li class="list-group-item"><%=link_to item.name, item_path(name:item.name.parameterize,restaurant_id:item.restaurant.id)%><br>
+				<%= item.price %><br>
+				<%= item.description %><br>
+			</li>
+			<% end %>
+		</ul>
+		<br>
+	</ul>
+	<%end%>
+	<br>
+	<%= link_to "Back", :back %>
+</div>

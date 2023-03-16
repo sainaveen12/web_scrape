@@ -1,17 +1,31 @@
-<h1>Articles</h1>
+<h1>Restaurants</h1>
+<input type="text" value="" name="location" id ="location" onkeypress="myFunction()" />
 
 <ul>
-  <% @categories.each do |article| %>
-  <li><%= article.name %></li>
+  <% @restaurants.each do |restaurant| %>
+  <li><%= link_to restaurant.name, restaurant_path(id:restaurant.name.parameterize) %></li>
   <ol>
-    <% Item.where(category_id: article.id).each do |item| %>
-
-    <li><%= item.name %><br>
-      <%= item.price %><br>
-      <%= item.description %></li>
+    <% restaurant.categories.each do |category| %>
+    <li><%= category.name %></li>
     <% end %>
 
     </ol>
 
     <% end %>
   </ul>
+  <script type="text/javascript">
+  var x = document.getElementById("location").value;
+    function myFunction() {
+      $.ajax({
+        url: "/",
+        type: "get",
+        data: {location: x},
+        success: function(data) { var categories = data;
+          alert(categories)
+        },
+        error: function(data) {}
+      })
+}
+
+    
+  </script>

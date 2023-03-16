@@ -9,8 +9,11 @@ Rails.application.routes.draw do
   # match '/scrape_data' => 'scrape#index', :method => :get
   match '/get_data', to: 'scrape#get_data', via: [:post]
   match '/scrape', to: 'scrape#index', via: [:get]
+  match '/restaurant/:id', controller: 'restaurant',action:'show', via: [:get],:as => 'restaurant'
+  match '/restaurant/:name/:restaurant_id', controller: 'items',action:'show', via: [:get],:as => 'item'
+  
   # get '/scrape_data', to: 'scrape#my_new_api', as: :my_new_api
-  # resources :scrape
+  # resources :restaurant
 
 
 
