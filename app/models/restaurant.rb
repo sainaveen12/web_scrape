@@ -1,4 +1,4 @@
 class Restaurant < ApplicationRecord
-	has_many :categories
+	has_and_belongs_to_many :categories
 	has_many :items
 end

@@ -1,18 +1,27 @@
-<div class="w-25 p-3">
-	<%@categories.each do |category|%>
-	<ul class="list-group">
-		<li class="list-group-item"><%= category.name%></li>
-		<ul class="list-group" >
-			<% category.items.each do |item| %>
-			<li class="list-group-item"><%=link_to item.name, item_path(name:item.name.parameterize,restaurant_id:item.restaurant.id)%><br>
-				<%= item.price %><br>
-				<%= item.description %><br>
-			</li>
-			<% end %>
+<div class="container"> 
+	<h1><%=@restaurant.name.capitalize%></h1>
+	<h5><span><%=@restaurant.location %></span></h5>
+	<p><%=@restaurant.about%></p>
+	<form action="/restaurant/<%= @restaurant.name.parameterize %>" method="get" accept-charset="UTF-8" >
+		<input id="search_name" name="search_name" value="<%=@name%>"type="text" />
+		<input  type="submit" value="submit" />
+	</form>
+	<div class="w-25 p-3">
+		<%@categories.each do |category|%>
+		<ul class="list-group">
+			<li class="list-group-item"><%= category.name%></li>
+			<ul class="list-group" >
+				<% category.items.each do |item| %>
+				<li class="list-group-item"><%=link_to item.name, item_path(name:item.name.parameterize,restaurant_id:item.restaurant.id)%><br>
+					<%= item.price %><br>
+					<%= item.description %><br>
+				</li>
+				<% end %>
+			</ul>
+			<br>
 		</ul>
+		<%end%>
 		<br>
-	</ul>
-	<%end%>
-	<br>
-	<%= link_to "Back", :back %>
+		<%= link_to "Back", :back %>
+	</div>
 </div>

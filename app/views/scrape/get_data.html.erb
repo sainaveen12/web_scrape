@@ -1,17 +1,19 @@
 <h1><%=@restaurant.name.capitalize%></h1>
+<h5><span><%=@restaurant.location %></span></h5>
+<p><%=@restaurant.about%></p>
 
 <ul>
-  <% @categories.each do |article| %>
-  <li><%= article.name %></li>
+  <% @categories.each do |category| %>
+  <li><%= category.name %></li>
   <ol>
-    <% Item.where(category_id: article.id).each do |item| %>
+    <% category.items.each do |item| %>
 
     <li><%= item.name %><br>
-    <%= item.price %><br>
-    <%= item.description %></li>
+      <%= item.price %><br>
+      <%= item.description %></li>
+      <% end %>
+
+    </ol>
+
     <% end %>
-
-  </ol>
-
-  <% end %>
-</ul>
+  </ul>

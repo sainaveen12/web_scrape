@@ -18,16 +18,18 @@ class ScrapeController < ApplicationController
                 @restaurant.name = restaurant_name
                 @restaurant.location = page.css('.merchant-address-details').text.strip
                 @restaurant.about = page.css('.merchant-description hide-mb').text.strip
-                
                 @restaurant.save
             end
             page.css('.categoryListing').each do |article|
                 title = article.css('.categoryHeading').text
-                category = Category.where(name:title,restaurant_id:@restaurant.id).first
+                category = Category.where(name:title).first
                 unless category.present?
-                    category = Category.create(name: title,restaurant_id:@restaurant.id) 
+                    category = Category.create(name: title) 
                 end
-
+                categories_restaurant = CategoriesRestaurant.find_by(category_id: category.id, restaurant_id: @restaurant.id)
+                unless categories_restaurant.present?
+                    categories_restaurant = CategoriesRestaurant.create(category_id: category.id, restaurant_id: @restaurant.id)
+                end
 
                 itemDetails = article.css(".itemDetails")
                 itemDetails.each do |c|
@@ -42,7 +44,7 @@ class ScrapeController < ApplicationController
                     end
                 end
             end
-            @categories  = Category.where(restaurant_id:@restaurant.id)
+            @categories  = @restaurant.categories
         end
     end
 end

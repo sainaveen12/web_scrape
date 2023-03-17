@@ -5,21 +5,17 @@ class RestaurantController < ApplicationController
     def index
         location = params[:location]
         if location.present?
-            @restaurants = Restaurant.where("location like (?)","%#{location.downcase}%")
+            @restaurants = Restaurant.where("LOWER(location) like ?","%#{location.downcase}%")
+            puts @restaurants.inspect
         else
             @restaurants = Restaurant.first(5)
         end
-         respond_to do |format|
-          format.html 
-          format.json { head :no_content }
-          format.js   { render :layout => false }
-       end
     end
     def show
-        @restaurant = Restaurant.where(name:(params[:id].titleize)).first
-        name = "Bowl"
-        if name.present?
-            @categories = @restaurant.categories.where("name LIKE ?","%#{name}%")
+        @restaurant = Restaurant.where("lower(name) LIKE ?","%#{params[:id].titleize.downcase}%").first
+        @name = params[:search_name]
+        if @name.present?
+            @categories = @restaurant.categories.where("LOWER(name) LIKE ?","%#{@name.downcase}%")
         else
             @categories = @restaurant.categories
         end

@@ -1,31 +1,36 @@
-<h1>Restaurants</h1>
-<input type="text" value="" name="location" id ="location" onkeypress="myFunction()" />
 
-<ul>
-  <% @restaurants.each do |restaurant| %>
-  <li><%= link_to restaurant.name, restaurant_path(id:restaurant.name.parameterize) %></li>
-  <ol>
-    <% restaurant.categories.each do |category| %>
-    <li><%= category.name %></li>
+<div class="container">
+  <h1>Restaurants</h1>
+
+  <form action="/" method="get" accept-charset="UTF-8" >
+    <input id="location" name="location" type="text" />
+    <input  type="submit" value="submit" />
+  </form>
+
+  <div class="row">
+
+    <% @restaurants.each do |restaurant| %>
+
+    <div class="col-sm-4 mb-2">
+
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title"><%= link_to restaurant.name, restaurant_path(id:restaurant.name.parameterize) %></h4>
+          <p class="card-text">
+            <ul>
+              <% restaurant.categories.first(5).each do |category| %>
+              <li><%= category.name %></li>
+              <% end %>
+            </ul>
+          </p>
+        </div>
+      </div>
+    </div>
+
     <% end %>
 
-    </ol>
+  </div>
 
-    <% end %>
-  </ul>
-  <script type="text/javascript">
-  var x = document.getElementById("location").value;
-    function myFunction() {
-      $.ajax({
-        url: "/",
-        type: "get",
-        data: {location: x},
-        success: function(data) { var categories = data;
-          alert(categories)
-        },
-        error: function(data) {}
-      })
-}
+</div>
 
-    
-  </script>
+
