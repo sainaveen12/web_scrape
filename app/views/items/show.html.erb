@@ -1,0 +1,14 @@
+<div class="container center">
+  <h6><%= @item.restaurant.restaurant_type%></h6>
+  <h4 ><%= link_to @item.restaurant.name, restaurant_path(id:@item.restaurant.reference_id) %></h4>
+  <h5><%= @item.restaurant.location%></h5>
+  <h1><%= @item.name%></h1>
+  <h3><%= @item.description%></h3>
+  <h2><%= @item.price%></h2>
+  <form action="/cart" method="get" accept-charset="UTF-8" >
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" min="1" max="100" step="1">
+    <input  type="submit" value="Add to cart" />
+  </form>
+
+</div>

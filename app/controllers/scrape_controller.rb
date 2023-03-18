@@ -17,7 +17,14 @@ class ScrapeController < ApplicationController
                 @restaurant = Restaurant.new
                 @restaurant.name = restaurant_name
                 @restaurant.location = page.css('.merchant-address-details').text.strip
-                @restaurant.about = page.css('.merchant-description hide-mb').text.strip
+                @restaurant.about = page.css('.merchant-description').first.children.first.text.strip
+                @restaurant.restaurant_type = page.css('.merchant-establishment').first.children.first.text.strip
+                reference_id = "#{@restaurant.name.parameterize}"
+                loop do
+                    break reference_id unless Restaurant.exists?(reference_id: reference_id)
+                    reference_id = "#{@restaurant.name.parameterize}#{rand.to_s[2..3]}"
+                end
+                @restaurant.reference_id = reference_id
                 @restaurant.save
             end
             page.css('.categoryListing').each do |article|

@@ -12,7 +12,7 @@
 			<li class="list-group-item"><%= category.name%></li>
 			<ul class="list-group" >
 				<% category.items.each do |item| %>
-				<li class="list-group-item"><%=link_to item.name, item_path(name:item.name.parameterize,restaurant_id:item.restaurant.id)%><br>
+				<li class="list-group-item"><%=link_to item.name, item_path(id:item.id,reference_id:@restaurant.reference_id)%><br>
 					<%= item.price %><br>
 					<%= item.description %><br>
 				</li>

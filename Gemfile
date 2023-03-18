@@ -73,6 +73,7 @@ group :test do
   gem "webdrivers"
 end
 gem 'pg'
+gem 'active_model_serializers'
 gem 'nokogiri'
 gem 'open-uri'
 gem 'bootstrap'

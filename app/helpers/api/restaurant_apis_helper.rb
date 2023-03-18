@@ -1,0 +1,2 @@
+module Api::RestaurantApisHelper
+end
