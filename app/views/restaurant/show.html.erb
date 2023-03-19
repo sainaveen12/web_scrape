@@ -3,15 +3,15 @@
 	<h5><span><%=@restaurant.location %></span></h5>
 	<p><%=@restaurant.about%></p>
 	<form action="/restaurant/<%= @restaurant.name.parameterize %>" method="get" accept-charset="UTF-8" >
-		<input id="search_name" name="search_name" value="<%=@name%>"type="text" />
-		<input  type="submit" value="submit" />
+		<input id="item_search" name="item_search" value="<%=@name%>"type="text" />
+		<input  type="submit" value="search" />
 	</form>
 	<div class="w-25 p-3">
 		<%@categories.each do |category|%>
 		<ul class="list-group">
 			<li class="list-group-item"><%= category.name%></li>
 			<ul class="list-group" >
-				<% category.items.each do |item| %>
+				<% category.items.where("id in (?)",@items.pluck(:id)).each do |item| %>
 				<li class="list-group-item"><%=link_to item.name, item_path(id:item.id,reference_id:@restaurant.reference_id)%><br>
 					<%= item.price %><br>
 					<%= item.description %><br>

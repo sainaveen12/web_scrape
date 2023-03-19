@@ -86,7 +86,7 @@ class Api::RestaurantApisController < ApplicationController
 
     end
     def product_detail_api
-    	item = Item.find(params[:id])
+    	item = Item.find(params[:id]) rescue nil
     	if item.present?
     		item_details={
     			name:item.name,
@@ -98,5 +98,8 @@ class Api::RestaurantApisController < ApplicationController
     	end
         render json: item_details
 
+    end
+    def create_order
+    	order = Order.create
     end
 end

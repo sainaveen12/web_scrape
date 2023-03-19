@@ -13,11 +13,14 @@ class RestaurantController < ApplicationController
     def show
         reference_id = params[:id]
         @restaurant = Restaurant.where("reference_id=?",reference_id).first
-        @name = params[:search_name]
+        @name = params[:item_search]
         if @name.present?
-            @categories = @restaurant.categories.where("LOWER(name) LIKE ?","%#{@name.downcase}%")
+            # @categories = @restaurant.categories.where("LOWER(name) LIKE ?","%#{@name.downcase}%")
+            @items = @restaurant.items.where("LOWER(name) LIKE ?","%#{@name.downcase}%")
+            @categories = Category.where("id in (?)",@items.pluck(:category_id).uniq)
         else
             @categories = @restaurant.categories
+            @items = @restaurant.items
         end
     end
 end

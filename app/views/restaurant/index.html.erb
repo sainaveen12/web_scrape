@@ -3,8 +3,8 @@
   <h1>Restaurants</h1>
 
   <form action="/" method="get" accept-charset="UTF-8" >
-    <input id="search" name="search" type="text" value="<%=@search%>" place-holder="location,type" />
-    <input  type="submit" value="submit" />
+    <input id="search" name="search" type="text" value="<%=@search%>" placeholder="location/type" />
+    <input  type="submit" value="search" />
     <%if @search.present?%>
     <h5>Results for "<%=@search%>"</h5>
     <%end%>
