@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   match '/index_api', controller: 'api/restaurant_apis',action:'index_api', via: [:get],:as => 'index_api'
   match '/category_products_api', controller: 'api/restaurant_apis',action:'category_products_api', via: [:get],:as => 'category_products_api'
   match '/product_detail_api', controller: 'api/restaurant_apis',action:'product_detail_api', via: [:get],:as => 'product_detail_api'
-  
+  match '/create_order', controller: 'api/restaurant_apis',action:'create_order', via: [:post],:as => 'create_order'
+
 
   
   # resources :restaurant

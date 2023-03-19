@@ -69,16 +69,18 @@ class Api::RestaurantApisController < ApplicationController
         restaurant = Restaurant.where("reference_id=?",reference_id).first
         name = params[:search_name]
         if name.present?
-            categories = restaurant.categories.where("LOWER(name) LIKE ?","%#{name.downcase}%")
+        	items = restaurant.items.where("LOWER(name) LIKE ?","%#{name.downcase}%")
+            categories = Category.where("id in (?)",items.pluck(:category_id).uniq)
         else
             categories = restaurant.categories
+            items = restaurant.items
         end
         data =[]
 
         categories.each do |category|
         	data<<{
         	category_name: category.name,
-        	items:Item.where(restaurant_id:restaurant.id,category_id:category.id)
+        	items:Item.where("id in (?) and restaurant_id=? and category_id=?",items.pluck(:id),restaurant.id,category.id)
         	}
 
         end
@@ -100,6 +102,22 @@ class Api::RestaurantApisController < ApplicationController
 
     end
     def create_order
-    	order = Order.create
+        return render json: {message: "invalid params"}, status: 422 if !params.present? 
+        puts params[:orders].inspect   
+        total_price = params[:orders].pluck(:price).sum
+    	order = Order.create!(total_price:total_price, order_code: SecureRandom.hex())
+        if order
+            params[:orders].each do |order_item|
+                OrderItem.create!(order_id: order.id, quantity: order_item['quantity'], price: order_item['price'], item_id: order_item['item_id'])
+            end
+            render json: {message: "order created succesfully", order_data: OrderSerializer.new(order).to_hash}
+        else
+            render json: {message: "order not created"}, status: 422 
+        end
+    end
+
+    private
+    def order_params
+        params.permit(orders: %i[item_id quantity price])
     end
 end

@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "93d3c21d-d827-4a78-b577-87ed7f3a4b32",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26441195"
+	},
+	"item": [
+		{
+			"name": "scrape_data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"search_link\":\"https://magicpin.in/Hyderabad/Miyapur/Restaurant/Vindhaara-Restaurant-and-Banquets/store/37a201/delivery/\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/get_data_api",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"get_data_api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restaurants search through location",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/index_api?search=hyderabad",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"index_api"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "hyderabad"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restaurants search through type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/index_api?search=Delivery Only",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"index_api"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "Delivery Only"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category and items as per the restaurant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/category_products_api?id=vindhaara-restaurant-banquets&search_name=veg",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"category_products_api"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "vindhaara-restaurant-banquets"
+						},
+						{
+							"key": "search_name",
+							"value": "veg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "product details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/product_detail_api?id=4",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product_detail_api"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orders\": [\r\n        {\r\n            \"price\": 260.0,\r\n            \"quantity\": 2,\r\n            \"order_id\": 1,\r\n            \"item_id\": 4\r\n        },{\r\n             \"price\": 140.0,\r\n            \"quantity\": 2,\r\n            \"order_id\": 1,\r\n            \"item_id\": 4\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/create_order",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"create_order"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
